@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dani Castro - Portfolio</title>
+  <!-- Font Awesome para los iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    /* Animación del logo */
+    @keyframes logoEntrance {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    /* Barra de navegación */
+    header {
+      width: 100%;
+      background-color: rgba(18, 18, 18, 0.9);
+      padding: 10px 20px;
+      z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo img {
+      height: 50px;
+    }
+    /* Botón hamburguesa (oculto en escritorio) */
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #f0f0f0;
+      cursor: pointer;
+      display: none;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+    }
+    .nav-menu li {
+      margin-left: 20px;
+    }
+    .nav-menu li a {
+      color: #f0f0f0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-menu li a:hover {
+      color: #1abc9c;
+    }
+    /* Sección Hero */
+    #hero {
+      height: 100vh;
+      background: url('img/hero-bg.jpg') no-repeat center center/cover;
+      position: relative;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(18, 18, 18, 0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    /* Logo principal con animación y tamaño aumentado */
+    .hero-content img.logo {
+      height: 200px;
+      animation: logoEntrance 1s ease-out forwards;
+      transform-origin: center;
+    }
+    /* Sección Sobre Mi (mejorada) */
+    #sobre-mi {
+      position: relative;
+      background: url('img/sobre-mi-bg.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+      padding: 80px 20px;
+    }
+    #sobre-mi::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    #sobre-mi .container {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+    }
+    #sobre-mi h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    #sobre-mi p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    /* Sección Experiencia & Habilidades */
+    #experiencia {
+      position: relative;
+      background: url('img/experiencia-bg.jpg') no-repeat center center/cover;
+      padding: 80px 20px;
+      min-height: 100vh;
+    }
+    #experiencia::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(18, 18, 18, 0.8);
+      z-index: 1;
+    }
+    #experiencia .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    #experiencia h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .card {
+      background-color: #1e1e1e;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    /* Sección Tecnologías */
+    #tecnologias {
+      padding: 80px 20px;
+      min-height: 100vh;
+      background-color: #121212;
+	  background: url('img/tecnologias-bg.jpg') no-repeat center center/cover;
+
+    }
+    #tecnologias .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #tecnologias h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tech-item {
+      background-color: #1e1e1e;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      width: 200px;
+      transition: transform 0.3s;
+    }
+    .tech-item:hover {
+      transform: scale(1.05);
+    }
+    /* Sección Contacto actualizada con fondo */
+    #contacto {
+      position: relative;
+      padding: 80px 20px;
+      min-height: 100vh;
+      background: url('img/contacto-bg.jpg') no-repeat center center/cover;
+    }
+    #contacto::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(18, 18, 18, 0.8);
+      z-index: 1;
+    }
+    #contacto .container {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #contacto h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .contact-item {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      min-width: 250px;
+      transition: transform 0.3s;
+    }
+    .contact-item:hover {
+      transform: scale(1.05);
+    }
+    .contact-item i {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #1abc9c;
+    }
+    .contact-item p {
+      font-size: 1.1rem;
+    }
+    /* Footer */
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+    /* Animaciones de entrada */
+    section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        position: relative;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(18, 18, 18, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+      }
+      .nav-menu.open {
+        display: flex;
+      }
+      .nav-menu li {
+        margin: 10px 0;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de navegación -->
+  <header>
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="img/logo.svg" alt="Logo Dani Castro">
+      </div>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-menu">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#sobre-mi">Sobre Mi</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#tecnologias">Tecnologías</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Sección Hero: Solo logo en el centro -->
+  <section id="hero">
+    <div class="hero-content">
+      <img class="logo" src="img/logo.svg" alt="Logo Dani Castro">
+    </div>
+  </section>
+
+  <!-- Sección Sobre Mi (mejorada) -->
+  <section id="sobre-mi">
+    <div class="container">
+      <h2>Sobre Mi</h2>
+      <p>
+        Técnico en formación con experiencia práctica en Sistemas Microinformáticos y Redes (SMR). Cuento con habilidades en redes sociales, software de video y control DMX, y poseo conocimientos básicos de inglés y carnet de conducir. Soy una persona comprometida y autónoma (con coche propio), ideal para proyectos tecnológicos y soporte técnico. Además, he trabajado como freelancer en el diseño y programación de iluminación para eventos, combinando creatividad con eficiencia técnica.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sección Experiencia & Habilidades -->
+  <section id="experiencia">
+    <div class="container">
+      <h2>Experiencia & Habilidades</h2>
+      <div class="card">
+        <h3>Freelancer en Iluminación de Eventos</h3>
+        <p>Diseño y programación de iluminación para eventos, combinando creatividad y tecnología para ofrecer soluciones innovadoras.</p>
+      </div>
+      <!-- Puedes agregar más tarjetas de experiencia según lo necesites -->
+    </div>
+  </section>
+
+  <!-- Sección Tecnologías -->
+  <section id="tecnologias">
+    <div class="container">
+      <h2>Tecnologías a Destacar</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h3>Visualizadores 3D</h3>
+        </div>
+        <div class="tech-item">
+          <h3>Dashlight 5</h3>
+        </div>
+        <div class="tech-item">
+          <h3>GrandMA2</h3>
+          <p>Conceptos básicos – dispuesto a aprender más.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Contacto actualizada con fondo -->
+  <section id="contacto">
+    <div class="container">
+      <h2>Contacto</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <p>+34 642 30 52 35</p>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <p>danicvillalba@gmail.com</p>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-instagram"></i>
+          <p>@danicastro.o</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Dani Castro. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- JavaScript para animar secciones y menú móvil -->
+  <script>
+    // Animación de secciones al hacer scroll (IntersectionObserver)
+    const sections = document.querySelectorAll('section');
+    const options = { threshold: 0.2 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+    sections.forEach(section => observer.observe(section));
+
+    // Toggle menú móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    // Scroll suave para enlaces del menú
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        if(navMenu.classList.contains('open')) {
+          navMenu.classList.remove('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
