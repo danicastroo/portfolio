@@ -1,573 +1,553 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dani Castro - Portfolio Técnico</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-
-  <style>
-    /* --- VARIABLES & RESET --- */
-    :root {
-      --primary: #1abc9c;
-      --secondary: #3498db;
-      --bg-dark: #0f0f0f;
-      --text-light: #f0f0f0;
-      --glass-bg: rgba(30, 30, 30, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --blur: 12px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-    }
-
-    /* --- ANIMACIONES --- */
-    @keyframes logoEntrance {
-      0% { transform: scale(0.8); opacity: 0; filter: blur(10px); }
-      100% { transform: scale(1); opacity: 1; filter: blur(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* --- HEADER / NAV --- */
-    header {
-      width: 100%;
-      background: rgba(15, 15, 15, 0.85);
-      backdrop-filter: blur(10px);
-      padding: 15px 30px;
-      z-index: 1000;
-      position: fixed;
-      top: 0;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .nav-logo img { height: 45px; }
-
-    .menu-toggle {
-      background: none;
-      border: none;
-      font-size: 1.8rem;
-      color: #fff;
-      cursor: pointer;
-      display: none;
-    }
-
-    .nav-menu {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-    }
-
-    .nav-menu a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    .nav-menu a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 0;
-      background-color: var(--primary);
-      transition: width 0.3s;
-    }
-
-    .nav-menu a:hover { color: var(--primary); }
-    .nav-menu a:hover::after { width: 100%; }
-
-    /* --- HERO --- */
-    #hero {
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('img/hero-bg.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .hero-content img.logo {
-      height: 350px; /* Logo más grande */
-      animation: logoEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      filter: drop-shadow(0 0 20px rgba(26, 188, 156, 0.3));
-    }
-
-    /* --- SECCIONES COMUNES --- */
-    section {
-      padding: 100px 20px;
-      min-height: 80vh; /* Ajuste para que no sea obligatoriamente pantalla completa si el contenido es corto */
-      position: relative;
-    }
-
-    .section-bg {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0;
-      background-attachment: fixed; /* Efecto Parallax simple */
-      filter: brightness(0.4);
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    h2.section-title {
-      font-size: 2.5rem;
-      margin-bottom: 50px;
-      text-align: center;
-      position: relative;
-      display: inline-block;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    h2.section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--primary);
-      margin: 10px auto 0;
-      border-radius: 2px;
-    }
-
-    /* --- SOBRE MI --- */
-    #sobre-mi { background-color: #1a1a1a; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani Castro | Dev & Visuals</title>
     
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .profile-card {
-      position: relative;
-    }
-
-    .profile-card img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .about-text p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      color: #ccc;
-    }
-
-    .highlight {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .tag-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 30px;
-    }
-
-    .tag {
-      background: rgba(255,255,255,0.05);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      border: 1px solid var(--primary);
-      color: var(--text-light);
-      transition: 0.3s;
-    }
-
-    .tag:hover {
-      background: var(--primary);
-      color: #000;
-      transform: translateY(-3px);
-    }
-
-    /* --- EXPERIENCIA Y HABILIDADES (GRID MODERNO) --- */
-    #experiencia { background-color: #121212; }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 30px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(26, 188, 156, 0.15);
-      border-color: var(--primary);
-    }
-
-    .card-icon {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-    }
-
-    .glass-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      color: #fff;
-    }
-
-    .glass-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .glass-card li {
-      margin-bottom: 10px;
-      padding-left: 20px;
-      position: relative;
-      font-size: 0.95rem;
-      color: #ddd;
-    }
-
-    .glass-card li::before {
-      content: "▹";
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-    }
-
-    /* --- TECNOLOGÍAS ESPECÍFICAS --- */
-    #stack .tech-flex {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .tech-pill {
-      background: #252525;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 3px solid var(--secondary);
-      transition: 0.3s;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
-    .tech-pill.ilum { border-color: #f1c40f; } /* Amarillo para luces */
-    .tech-pill.video { border-color: #e74c3c; } /* Rojo para video */
-    .tech-pill.web { border-color: #3498db; }   /* Azul para web */
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
-    .tech-pill:hover {
-      background: #333;
-      transform: scale(1.05);
-    }
+    <style>
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-secondary: #111111;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #7000ff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-    /* --- CONTACTO --- */
-    #contacto {
-      text-align: center;
-      background: linear-gradient(to top, #000, #121212);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    .contact-wrapper {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-    .contact-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #fff;
-      background: var(--glass-bg);
-      padding: 30px;
-      border-radius: 12px;
-      min-width: 200px;
-      border: 1px solid var(--glass-border);
-      transition: 0.3s;
-    }
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.02em;
+        }
 
-    .contact-btn:hover {
-      background: var(--primary);
-      color: #121212;
-      transform: translateY(-5px);
-    }
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
 
-    .contact-btn i { font-size: 2rem; margin-bottom: 10px; }
+        .logo img {
+            height: 35px;
+            filter: drop-shadow(0 0 5px var(--accent-cyan));
+        }
 
-    /* --- FOOTER --- */
-    footer {
-      background: #000;
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-size: 0.8rem;
-    }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
 
-    /* --- RESPONSIVE --- */
-    @media (max-width: 768px) {
-      .menu-toggle { display: block; }
-      
-      .nav-menu {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(15, 15, 15, 0.95);
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        clip-path: circle(0% at 100% 0);
-        transition: clip-path 0.5s ease-in-out;
-      }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
 
-      .nav-menu.open { clip-path: circle(140% at 100% 0); }
-      
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .tag-container { justify-content: center; }
-      
-      h2.section-title { font-size: 2rem; }
-    }
-  </style>
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            /* Parallax Effect */
+            background: url('img/hero-bg.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed; 
+        }
+
+        /* Overlay oscuro para leer texto sobre la imagen */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.9) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 1;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- GENERAL LAYOUT --- */
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 20px;
+        }
+
+        /* --- SOBRE MI (Diseño Asimétrico) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .profile-img-container {
+            position: relative;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            border-radius: 4px;
+            filter: grayscale(100%);
+            transition: 0.5s;
+            box-shadow: 20px 20px 0px var(--border);
+        }
+
+        .profile-img-container:hover img {
+            filter: grayscale(0%);
+            box-shadow: 20px 20px 0px var(--accent-cyan);
+            transform: translate(-5px, -5px);
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* --- PARALLAX BREAK --- */
+        /* Una franja visual usando tus imágenes */
+        .parallax-break {
+            height: 400px;
+            background: url('img/experiencia-bg.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .parallax-break::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .parallax-text {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: white;
+            text-transform: uppercase;
+            border: 2px solid white;
+            padding: 20px 40px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- EXPERIENCIA: BENTO GRID --- */
+        /* Estilo moderno tipo cuadrícula de cajas */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(250px, auto);
+            gap: 20px;
+        }
+
+        .bento-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-box:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-5px);
+        }
+
+        .bento-box.large {
+            grid-column: span 2;
+        }
+
+        .bento-icon {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        
+        .bento-box:hover .bento-icon {
+            color: var(--accent-purple);
+        }
+
+        .bento-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .bento-list {
+            list-style: none;
+            color: #aaa;
+        }
+        
+        .bento-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .bento-list li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* --- STACK VISUAL --- */
+        .stack-track {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stack-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+        
+        .stack-tag.dev { color: #61dafb; border-color: rgba(97, 218, 251, 0.3); }
+        .stack-tag.light { color: #f1c40f; border-color: rgba(241, 196, 15, 0.3); }
+        .stack-tag.video { color: #e74c3c; border-color: rgba(231, 76, 60, 0.3); }
+
+        /* --- CONTACTO --- */
+        #contacto {
+            background: linear-gradient(0deg, var(--bg-main) 0%, #1a1a1a 100%);
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .btn-contact {
+            padding: 15px 40px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: var(--glass);
+            color: white;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-contact:hover {
+            background: var(--text-main);
+            color: var(--bg-main);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- MOBILE --- */
+        .menu-toggle { display: none; }
+
+        @media (max-width: 900px) {
+            .hero-title { font-size: 3.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-box.large { grid-column: span 1; }
+            
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none; /* Simplificado para este ejemplo, idealmente usar JS toggle */
+                position: absolute;
+                top: 70px; left: 0; width: 100%;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+            }
+            
+            .nav-links.active { display: flex; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <header>
-    <div class="nav-container">
-      <div class="nav-logo">
-        <a href="#hero"><img src="img/logo.svg" alt="Dani Castro Logo"></a>
-      </div>
-      <button class="menu-toggle"><i class="fas fa-bars"></i></button>
-      <ul class="nav-menu">
-        <li><a href="#sobre-mi">Sobre Mí</a></li>
-        <li><a href="#experiencia">Experiencia</a></li>
-        <li><a href="#stack">Stack</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </div>
-  </header>
+    <header>
+        <a href="#" class="logo">
+            <img src="img/logo.svg" alt="DC">
+        </a>
+        <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="#sobre-mi">Perfil</a></li>
+            <li><a href="#experiencia">Habilidades</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </header>
 
-  <section id="hero">
-    <div class="hero-content">
-      <img class="logo" src="img/logo.svg" alt="Logo Animado">
-    </div>
-  </section>
-
-  <section id="sobre-mi">
-    <div class="container">
-      <h2 class="section-title">Sobre Mí</h2>
-      <div class="about-grid">
-        <div class="profile-card">
-          <img src="img/daniel.jpg" alt="Dani Castro">
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">DANI CASTRO</h1>
+            <p class="hero-subtitle fade-in">Dev & Visual Artist</p>
         </div>
-        <div class="about-text">
-          <p>
-            ¡Hola! Soy un apasionado de la tecnología y el mundo audiovisual. Actualmente estoy finalizando mi 
-            <span class="highlight">Ciclo Superior de Desarrollo de Aplicaciones Web (DAW)</span>, complementando mi formación 
-            previa como Técnico en Sistemas Microinformáticos y Redes (SMR).
-          </p>
-          <p>
-            Me especializo en unir el mundo del <strong>software</strong> con el <strong>hardware de espectáculos</strong>. 
-            Tengo experiencia práctica diseñando iluminación para eventos y gestionando visuales en pantallas LED. 
-            Soy una persona autónoma, resolutiva y siempre buscando aprender la siguiente herramienta que me permita crear experiencias visuales impactantes.
-          </p>
-          
-          <div class="tag-container">
-            <span class="tag">Desarrollo Web</span>
-            <span class="tag">Iluminación Escénica</span>
-            <span class="tag">Video Mapping</span>
-            <span class="tag">Hardware</span>
-            <span class="tag">Freelance</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="experiencia">
-    <div class="section-bg" style="background-image: url('img/experiencia-bg.jpg');"></div>
-    <div class="container">
-      <h2 class="section-title">Experiencia & Habilidades</h2>
-      
-      <div class="skills-grid">
+    <section id="sobre-mi">
+        <div class="container">
+            <div class="about-grid">
+                <div class="profile-img-container slide-up">
+                    <img src="img/daniel.jpg" alt="Dani Castro Profile">
+                </div>
+                <div class="about-text slide-up">
+                    <h2 class="section-header">El perfil híbrido.</h2>
+                    <p>
+                        Estoy en el punto de convergencia entre el <span class="highlight">código</span> y el <span class="highlight">escenario</span>. 
+                        Finalizando mi Ciclo Superior en <strong>Desarrollo de Aplicaciones Web (DAW)</strong> y con un background sólido en Sistemas (SMR).
+                    </p>
+                    <p>
+                        Mi enfoque no es solo escribir software, sino entender cómo la lógica de programación puede controlar el mundo físico: 
+                        desde una página web hasta un sistema complejo de pantallas LED y cabezas móviles DMX.
+                    </p>
+                    <p>
+                        Busco proyectos donde la precisión técnica y el impacto visual sean obligatorios.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-break">
+        <div class="parallax-text">CREATIVIDAD TÉCNICA</div>
+    </div>
+
+    <section id="experiencia">
+        <div class="container">
+            <h2 class="section-header">Expertise</h2>
+            
+            <div class="bento-grid">
+                <div class="bento-box large slide-up">
+                    <div>
+                        <i class="fas fa-terminal bento-icon"></i>
+                        <h3 class="bento-title">Desarrollo Web & Lógica</h3>
+                        <p style="color: #888; margin-bottom: 15px;">La base de todo control moderno.</p>
+                        <ul class="bento-list">
+                            <li>Desarrollo de Aplicaciones Web (Finalizando DAW).</li>
+                            <li>Lógica de programación estructurada y POO.</li>
+                            <li>Integración Software-Hardware.</li>
+                            <li>Resolución algorítmica de problemas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bento-box slide-up">
+                    <div>
+                        <i class="fas fa-bolt bento-icon"></i>
+                        <h3 class="bento-title">Iluminación</h3>
+                        <ul class="bento-list">
+                            <li>Diseño Stage Light.</li>
+                            <li>Daslight 5 (Avanzado).</li>
+                            <li>GrandMA2 (Operativa).</li>
+                            <li>Iluminación pública.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bento-box slide-up">
+                    <div>
+                        <i class="fas fa-video bento-icon"></i>
+                        <h3 class="bento-title">Video & LED</h3>
+                        <ul class="bento-list">
+                            <li>Resolume Arena VJing.</li>
+                            <li>NovaStar LCT.</li>
+                            <li>Mapping de pantallas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bento-box large slide-up" style="background: url('img/tecnologias-bg.jpg') center/cover;">
+                    <div style="background: rgba(0,0,0,0.8); position: absolute; inset:0; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 class="bento-title">Tech Stack</h3>
+                        <div class="stack-track">
+                            <span class="stack-tag dev">Java</span>
+                            <span class="stack-tag dev">Web Dev</span>
+                            <span class="stack-tag light">DMX 512</span>
+                            <span class="stack-tag light">ArtNet</span>
+                            <span class="stack-tag video">Resolume</span>
+                            <span class="stack-tag video">NovaStar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-header" style="text-align: center; border: none;">Conectemos</h2>
+            <p style="color: #888; max-width: 600px; margin: 0 auto;">
+                Disponible para desarrollos web, configuraciones de sistemas visuales o proyectos de iluminación.
+            </p>
+            
+            <div class="contact-links slide-up">
+                <a href="mailto:danicvillalba@gmail.com" class="btn-contact">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/danicastroo" target="_blank" class="btn-contact">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://www.instagram.com/danicastro.o" target="_blank" class="btn-contact">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Dani Castro &copy; 2026. Designed for the Future.</p>
+    </footer>
+
+    <script>
+        // Menu Toggle Mobile
+        const menuBtn = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
         
-        <div class="glass-card">
-          <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
-          <h3>Iluminación Escénica</h3>
-          <ul>
-            <li>Diseño y programación de <strong>Stage Light</strong>.</li>
-            <li>Dominio de software: <strong>Daslight 5</strong> y conocimientos de <strong>GrandMA2</strong>.</li>
-            <li>Diseño y programación de iluminación navideña para ayuntamientos.</li>
-            <li>Operativa en directo y diseño de shows.</li>
-          </ul>
-        </div>
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
 
-        <div class="glass-card">
-          <div class="card-icon"><i class="fas fa-video"></i></div>
-          <h3>Video & Pantallas LED</h3>
-          <ul>
-            <li>VJing y Mapping con <strong>Resolume Arena</strong>.</li>
-            <li>Configuración y mapeado de pantallas LED con <strong>NovaStar LCT</strong>.</li>
-            <li>Gestión de contenido visual para eventos en vivo.</li>
-          </ul>
-        </div>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
 
-        <div class="glass-card">
-          <div class="card-icon"><i class="fas fa-tools"></i></div>
-          <h3>Hardware & Montaje</h3>
-          <ul>
-            <li>Montaje y configuración de <strong>cámaras analógicas y digitales</strong>.</li>
-            <li>Mantenimiento de equipos informáticos (SMR).</li>
-            <li>Instalación de cableado y resolución de incidencias técnicas in-situ.</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="stack" style="background-color: #1a1a1a;">
-    <div class="container">
-      <h2 class="section-title">Software & Herramientas</h2>
-      <div class="tech-flex">
-        <div class="tech-pill ilum"><i class="fas fa-bolt"></i> Daslight 5</div>
-        <div class="tech-pill ilum"><i class="fas fa-bolt"></i> GrandMA2</div>
-        <div class="tech-pill video"><i class="fas fa-tv"></i> Resolume Arena</div>
-        <div class="tech-pill video"><i class="fas fa-microchip"></i> NovaStar LCT</div>
-        <div class="tech-pill web"><i class="fas fa-code"></i> HTML5 / CSS3</div>
-        <div class="tech-pill web"><i class="fas fa-laptop-code"></i> Desarrollo Web (DAW)</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contacto">
-    <div class="section-bg" style="background-image: url('img/contacto-bg.jpg');"></div>
-    <div class="container">
-      <h2 class="section-title">Hablemos</h2>
-      <p style="color: #ccc; margin-bottom: 30px;">Disponible para proyectos de iluminación, video o desarrollo web.</p>
-      
-      <div class="contact-wrapper">
-        <a href="tel:+34642305235" class="contact-btn">
-          <i class="fas fa-phone-alt"></i>
-          <span>+34 642 30 52 35</span>
-        </a>
-        <a href="mailto:danicvillalba@gmail.com" class="contact-btn">
-          <i class="fas fa-envelope"></i>
-          <span>danicvillalba@gmail.com</span>
-        </a>
-        <a href="https://www.instagram.com/danicastro.o" target="_blank" class="contact-btn">
-          <i class="fab fa-instagram"></i>
-          <span>@danicastro.o</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 Dani Castro. Diseño y Desarrollo.</p>
-  </footer>
-
-  <script>
-    // Menú Hamburguesa
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      const icon = menuToggle.querySelector('i');
-      if (navMenu.classList.contains('open')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-      } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-
-    // Cerrar menú al hacer click en un enlace
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        menuToggle.querySelector('i').classList.remove('fa-times');
-        menuToggle.querySelector('i').classList.add('fa-bars');
-      });
-    });
-
-    // Animación al hacer Scroll (Intersection Observer)
-    const observerOptions = { threshold: 0.1 };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animation = `fadeInUp 0.8s ease-out forwards`;
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.glass-card, .profile-card, .about-text, .tech-pill, .contact-btn').forEach(el => {
-      el.style.opacity = '0'; // Inicialmente oculto
-      observer.observe(el);
-    });
-  </script>
-
+        // Elementos a animar
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-up');
+        
+        animatedElements.forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
