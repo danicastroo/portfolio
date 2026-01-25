@@ -1,551 +1,573 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dani Castro - Portfolio Técnico</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <style>
-        :root {
-            --primary: #00f2c3;
-            --secondary: #0098f0;
-            --bg-dark: #050505;
-            --text-light: #ffffff;
-            --text-dim: #a0a0a0;
-            --glass: rgba(20, 20, 20, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --blur: 16px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dani Castro - Portfolio Técnico</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /* --- VARIABLES & RESET --- */
+    :root {
+      --primary: #1abc9c;
+      --secondary: #3498db;
+      --bg-dark: #0f0f0f;
+      --text-light: #f0f0f0;
+      --glass-bg: rgba(30, 30, 30, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --blur: 12px;
+    }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s;
-        }
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
 
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 15px 0;
-        }
+    /* --- ANIMACIONES --- */
+    @keyframes logoEntrance {
+      0% { transform: scale(0.8); opacity: 0; filter: blur(10px); }
+      100% { transform: scale(1); opacity: 1; filter: blur(0); }
+    }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
+    /* --- HEADER / NAV --- */
+    header {
+      width: 100%;
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      z-index: 1000;
+      position: fixed;
+      top: 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
 
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .nav-menu a {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-light);
-            position: relative;
-        }
+    .nav-logo img { height: 45px; }
 
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #fff;
+      cursor: pointer;
+      display: none;
+    }
 
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
 
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+    .nav-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+      position: relative;
+    }
 
-        section {
-            padding: 100px 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-        }
+    .nav-menu a:hover { color: var(--primary); }
+    .nav-menu a:hover::after { width: 100%; }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            text-align: center;
-            background: linear-gradient(to right, #fff, #a0a0a0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* --- HERO --- */
+    #hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('img/hero-bg.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
 
-        #hero {
-            background: radial-gradient(circle at center, rgba(0, 242, 195, 0.1) 0%, rgba(5, 5, 5, 1) 70%), url('img/hero-bg.jpg') no-repeat center center/cover;
-            text-align: center;
-            padding: 0;
-        }
+    .hero-content img.logo {
+      height: 350px; /* Logo más grande */
+      animation: logoEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      filter: drop-shadow(0 0 20px rgba(26, 188, 156, 0.3));
+    }
 
-        .hero-logo {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            filter: drop-shadow(0 0 30px rgba(0, 242, 195, 0.2));
-            animation: float 6s ease-in-out infinite;
-        }
+    /* --- SECCIONES COMUNES --- */
+    section {
+      padding: 100px 20px;
+      min-height: 80vh; /* Ajuste para que no sea obligatoriamente pantalla completa si el contenido es corto */
+      position: relative;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
+    .section-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      background-attachment: fixed; /* Efecto Parallax simple */
+      filter: brightness(0.4);
+    }
 
-        #sobre-mi {
-            background: #080808;
-        }
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: center;
-        }
+    h2.section-title {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-        .image-wrapper {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 242, 195, 0.1);
-        }
+    h2.section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
 
-        .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 1 / 1; 
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s;
-        }
+    /* --- SOBRE MI --- */
+    #sobre-mi { background-color: #1a1a1a; }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 50px;
+      align-items: center;
+    }
 
-        .image-wrapper:hover img {
-            transform: scale(1.05);
-        }
+    .profile-card {
+      position: relative;
+    }
 
-        .text-wrapper h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
+    .profile-card img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
 
-        .text-wrapper p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-dim);
-            margin-bottom: 20px;
-        }
+    .about-text p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #ccc;
+    }
 
-        .highlight {
-            color: var(--text-light);
-            font-weight: 600;
-            border-bottom: 1px solid var(--primary);
-        }
+    .highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
 
-        #experiencia {
-            background: url('img/experiencia-bg.jpg') no-repeat center center/cover;
-        }
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
 
-        #experiencia::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(5px);
-        }
+    .tag {
+      background: rgba(255,255,255,0.05);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      border: 1px solid var(--primary);
+      color: var(--text-light);
+      transition: 0.3s;
+    }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
+    .tag:hover {
+      background: var(--primary);
+      color: #000;
+      transform: translateY(-3px);
+    }
 
-        .card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 24px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
+    /* --- EXPERIENCIA Y HABILIDADES (GRID MODERNO) --- */
+    #experiencia { background-color: #121212; }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
 
-        .card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            display: block;
-        }
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-        }
+    .glass-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(26, 188, 156, 0.15);
+      border-color: var(--primary);
+    }
 
-        .card ul {
-            list-style: none;
-        }
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
 
-        .card li {
-            margin-bottom: 12px;
-            color: var(--text-dim);
-            padding-left: 20px;
-            position: relative;
-        }
+    .glass-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
 
-        .card li::before {
-            content: '•';
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
+    .glass-card ul {
+      list-style: none;
+      padding: 0;
+    }
 
-        #stack {
-            background: linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.8)), url('img/tecnologias-bg.jpg') no-repeat center center/cover;
-            background-attachment: fixed;
-        }
+    .glass-card li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
 
-        .tech-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+    .glass-card li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
 
-        .tech-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
-        }
+    /* --- TECNOLOGÍAS ESPECÍFICAS --- */
+    #stack .tech-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
 
-        .tech-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05);
-            border-color: var(--secondary);
-        }
+    .tech-pill {
+      background: #252525;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 3px solid var(--secondary);
+      transition: 0.3s;
+    }
+    
+    .tech-pill.ilum { border-color: #f1c40f; } /* Amarillo para luces */
+    .tech-pill.video { border-color: #e74c3c; } /* Rojo para video */
+    .tech-pill.web { border-color: #3498db; }   /* Azul para web */
 
-        .tech-item.soft { border-color: rgba(0, 242, 195, 0.3); }
-        .tech-item.dev { border-color: rgba(0, 152, 240, 0.3); }
+    .tech-pill:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
 
-        #contacto {
-            background: linear-gradient(to top, #000, #111);
-        }
+    /* --- CONTACTO --- */
+    #contacto {
+      text-align: center;
+      background: linear-gradient(to top, #000, #121212);
+    }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    .contact-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
 
-        .contact-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            transition: 0.3s;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
+    .contact-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #fff;
+      background: var(--glass-bg);
+      padding: 30px;
+      border-radius: 12px;
+      min-width: 200px;
+      border: 1px solid var(--glass-border);
+      transition: 0.3s;
+    }
 
-        .contact-box:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary);
-        }
+    .contact-btn:hover {
+      background: var(--primary);
+      color: #121212;
+      transform: translateY(-5px);
+    }
 
-        .contact-box i {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--text-light);
-        }
+    .contact-btn i { font-size: 2rem; margin-bottom: 10px; }
 
-        .contact-box span {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-        }
+    /* --- FOOTER --- */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 0.8rem;
+    }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid #222;
-            color: #555;
-            font-size: 0.8rem;
-            background: #000;
-        }
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      
+      .nav-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 15, 15, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        clip-path: circle(0% at 100% 0);
+        transition: clip-path 0.5s ease-in-out;
+      }
 
-        @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: #000;
-                flex-direction: column;
-                padding: 40px;
-                text-align: center;
-                transform: translateY(-150%);
-                transition: transform 0.4s ease;
-            }
-            .nav-menu.active { transform: translateY(0); }
-            
-            .about-content { grid-template-columns: 1fr; }
-            .image-wrapper { max-width: 300px; margin: 0 auto; }
-            .text-wrapper { text-align: center; }
-            .section-title { font-size: 2rem; }
-        }
-    </style>
+      .nav-menu.open { clip-path: circle(140% at 100% 0); }
+      
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .tag-container { justify-content: center; }
+      
+      h2.section-title { font-size: 2rem; }
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="#hero" class="logo">
-                <img src="img/logo.svg" alt="Dani Castro">
-            </a>
-            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
-            <ul class="nav-menu">
-                <li><a href="#sobre-mi">Perfil</a></li>
-                <li><a href="#experiencia">Experiencia</a></li>
-                <li><a href="#stack">Tecnología</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+  <header>
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="#hero"><img src="img/logo.svg" alt="Dani Castro Logo"></a>
+      </div>
+      <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+      <ul class="nav-menu">
+        <li><a href="#sobre-mi">Sobre Mí</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="hero-content">
+      <img class="logo" src="img/logo.svg" alt="Logo Animado">
+    </div>
+  </section>
+
+  <section id="sobre-mi">
+    <div class="container">
+      <h2 class="section-title">Sobre Mí</h2>
+      <div class="about-grid">
+        <div class="profile-card">
+          <img src="img/daniel.jpg" alt="Dani Castro">
         </div>
-    </header>
-
-    <section id="hero">
-        <div class="container">
-            <img src="img/logo.svg" alt="Dani Castro Logo" class="hero-logo">
+        <div class="about-text">
+          <p>
+            ¡Hola! Soy un apasionado de la tecnología y el mundo audiovisual. Actualmente estoy finalizando mi 
+            <span class="highlight">Ciclo Superior de Desarrollo de Aplicaciones Web (DAW)</span>, complementando mi formación 
+            previa como Técnico en Sistemas Microinformáticos y Redes (SMR).
+          </p>
+          <p>
+            Me especializo en unir el mundo del <strong>software</strong> con el <strong>hardware de espectáculos</strong>. 
+            Tengo experiencia práctica diseñando iluminación para eventos y gestionando visuales en pantallas LED. 
+            Soy una persona autónoma, resolutiva y siempre buscando aprender la siguiente herramienta que me permita crear experiencias visuales impactantes.
+          </p>
+          
+          <div class="tag-container">
+            <span class="tag">Desarrollo Web</span>
+            <span class="tag">Iluminación Escénica</span>
+            <span class="tag">Video Mapping</span>
+            <span class="tag">Hardware</span>
+            <span class="tag">Freelance</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="sobre-mi">
-        <div class="container">
-            <div class="about-content">
-                <div class="image-wrapper">
-                    <img src="img/daniel.jpg" alt="Foto de Dani Castro">
-                </div>
-                <div class="text-wrapper">
-                    <h3>Perfil Técnico</h3>
-                    <p>
-                        Finalizando el <span class="highlight">Ciclo Superior de Desarrollo de Aplicaciones Web (DAW)</span>.
-                        Mi perfil ha evolucionado hacia la programación avanzada, buscando aplicar la lógica del software 
-                        al control de sistemas complejos.
-                    </p>
-                    <p>
-                        Cuento con una base sólida como Técnico en Sistemas (SMR), lo que me permite entender no solo el código, 
-                        sino la infraestructura donde se ejecuta. Combino la capacidad analítica de la programación con la creatividad 
-                        del diseño técnico de espectáculos.
-                    </p>
-                    <p style="color: #fff; font-weight: bold; margin-top: 20px;">
-                        <i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 
-                        Enfocado en Desarrollo de Software y Lógica de Control.
-                    </p>
-                </div>
-            </div>
+  <section id="experiencia">
+    <div class="section-bg" style="background-image: url('img/experiencia-bg.jpg');"></div>
+    <div class="container">
+      <h2 class="section-title">Experiencia & Habilidades</h2>
+      
+      <div class="skills-grid">
+        
+        <div class="glass-card">
+          <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Iluminación Escénica</h3>
+          <ul>
+            <li>Diseño y programación de <strong>Stage Light</strong>.</li>
+            <li>Dominio de software: <strong>Daslight 5</strong> y conocimientos de <strong>GrandMA2</strong>.</li>
+            <li>Diseño y programación de iluminación navideña para ayuntamientos.</li>
+            <li>Operativa en directo y diseño de shows.</li>
+          </ul>
         </div>
-    </section>
 
-    <section id="experiencia">
-        <div class="container">
-            <h2 class="section-title">Experiencia & Habilidades</h2>
-            <div class="cards-grid">
-                
-                <div class="card">
-                    <i class="fas fa-code"></i>
-                    <h4>Programación & Lógica</h4>
-                    <ul>
-                        <li>Desarrollo de Aplicaciones Web (En curso).</li>
-                        <li>Lógica de programación estructurada y POO.</li>
-                        <li>Integración de sistemas software/hardware.</li>
-                        <li>Resolución de problemas algorítmicos.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <i class="fas fa-desktop"></i>
-                    <h4>Video & Pantallas</h4>
-                    <ul>
-                        <li>Resolume Arena (Mapping & VJing).</li>
-                        <li>NovaStar LCT (Configuración LED).</li>
-                        <li>Gestión de señales de video y resoluciones.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h4>Iluminación & Control</h4>
-                    <ul>
-                        <li>Daslight 5 (Programación avanzada).</li>
-                        <li>GrandMA2 (Nociones y operativa).</li>
-                        <li>Programación de alumbrado público/navideño.</li>
-                        <li>Diseño de Stage Lighting.</li>
-                    </ul>
-                </div>
-
-            </div>
+        <div class="glass-card">
+          <div class="card-icon"><i class="fas fa-video"></i></div>
+          <h3>Video & Pantallas LED</h3>
+          <ul>
+            <li>VJing y Mapping con <strong>Resolume Arena</strong>.</li>
+            <li>Configuración y mapeado de pantallas LED con <strong>NovaStar LCT</strong>.</li>
+            <li>Gestión de contenido visual para eventos en vivo.</li>
+          </ul>
         </div>
-    </section>
 
-    <section id="stack">
-        <div class="container">
-            <h2 class="section-title">Stack Tecnológico</h2>
-            <div class="tech-container">
-                <div class="tech-item dev"><i class="fas fa-laptop-code"></i> Desarrollo de Software</div>
-                <div class="tech-item dev"><i class="fas fa-terminal"></i> Programación Web</div>
-                <div class="tech-item soft"><i class="fas fa-tv"></i> Resolume Arena</div>
-                <div class="tech-item soft"><i class="fas fa-microchip"></i> NovaStar</div>
-                <div class="tech-item soft"><i class="fas fa-bolt"></i> Daslight 5</div>
-                <div class="tech-item soft"><i class="fas fa-sliders-h"></i> GrandMA2</div>
-            </div>
+        <div class="glass-card">
+          <div class="card-icon"><i class="fas fa-tools"></i></div>
+          <h3>Hardware & Montaje</h3>
+          <ul>
+            <li>Montaje y configuración de <strong>cámaras analógicas y digitales</strong>.</li>
+            <li>Mantenimiento de equipos informáticos (SMR).</li>
+            <li>Instalación de cableado y resolución de incidencias técnicas in-situ.</li>
+          </ul>
         </div>
-    </section>
 
-    <section id="contacto">
-        <div class="container">
-            <h2 class="section-title">Contacto</h2>
-            <div class="contact-grid">
-                <a href="tel:+34642305235" class="contact-box">
-                    <i class="fas fa-phone"></i>
-                    <span>+34 642 30 52 35</span>
-                </a>
-                <a href="mailto:danicvillalba@gmail.com" class="contact-box">
-                    <i class="fas fa-envelope"></i>
-                    <span>Enviar Email</span>
-                </a>
-                <a href="https://www.instagram.com/danicastro.o" target="_blank" class="contact-box">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
-                <a href="https://www.linkedin.com/in/danicastroo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="contact-box">
-                    <i class="fab fa-linkedin-in"></i>
-                    <span>LinkedIn</span>
-                </a>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p>Dani Castro &copy; 2026</p>
-    </footer>
+  <section id="stack" style="background-color: #1a1a1a;">
+    <div class="container">
+      <h2 class="section-title">Software & Herramientas</h2>
+      <div class="tech-flex">
+        <div class="tech-pill ilum"><i class="fas fa-bolt"></i> Daslight 5</div>
+        <div class="tech-pill ilum"><i class="fas fa-bolt"></i> GrandMA2</div>
+        <div class="tech-pill video"><i class="fas fa-tv"></i> Resolume Arena</div>
+        <div class="tech-pill video"><i class="fas fa-microchip"></i> NovaStar LCT</div>
+        <div class="tech-pill web"><i class="fas fa-code"></i> HTML5 / CSS3</div>
+        <div class="tech-pill web"><i class="fas fa-laptop-code"></i> Desarrollo Web (DAW)</div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-menu a');
+  <section id="contacto">
+    <div class="section-bg" style="background-image: url('img/contacto-bg.jpg');"></div>
+    <div class="container">
+      <h2 class="section-title">Hablemos</h2>
+      <p style="color: #ccc; margin-bottom: 30px;">Disponible para proyectos de iluminación, video o desarrollo web.</p>
+      
+      <div class="contact-wrapper">
+        <a href="tel:+34642305235" class="contact-btn">
+          <i class="fas fa-phone-alt"></i>
+          <span>+34 642 30 52 35</span>
+        </a>
+        <a href="mailto:danicvillalba@gmail.com" class="contact-btn">
+          <i class="fas fa-envelope"></i>
+          <span>danicvillalba@gmail.com</span>
+        </a>
+        <a href="https://www.instagram.com/danicastro.o" target="_blank" class="contact-btn">
+          <i class="fab fa-instagram"></i>
+          <span>@danicastro.o</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
+  <footer>
+    <p>&copy; 2026 Dani Castro. Diseño y Desarrollo.</p>
+  </footer>
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-            });
-        });
+  <script>
+    // Menú Hamburguesa
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      if (navMenu.classList.contains('open')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        menuToggle.querySelector('i').classList.remove('fa-times');
+        menuToggle.querySelector('i').classList.add('fa-bars');
+      });
+    });
 
-        const elements = document.querySelectorAll('.card, .image-wrapper, .text-wrapper, .contact-box, .tech-item');
-        elements.forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
-        });
-    </script>
+    // Animación al hacer Scroll (Intersection Observer)
+    const observerOptions = { threshold: 0.1 };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = `fadeInUp 0.8s ease-out forwards`;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.glass-card, .profile-card, .about-text, .tech-pill, .contact-btn').forEach(el => {
+      el.style.opacity = '0'; // Inicialmente oculto
+      observer.observe(el);
+    });
+  </script>
+
 </body>
 </html>
-
