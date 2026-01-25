@@ -14,18 +14,20 @@
 
     <style>
         :root {
-            --primary: #00f2c3; /* Turquesa principal */
-            --primary-glow: rgba(0, 242, 195, 0.3);
+            /* Paleta de colores más vibrante */
+            --primary: #00e1ff; /* Cian eléctrico más brillante */
+            --primary-glow: rgba(0, 225, 255, 0.6);
+            --secondary: #4facfe; /* Azul vivo para gradientes */
             
-            --bg-deep: #050507; /* Negro profundo con tinte azulado */
-            --bg-surface: #0e0e11; /* Superficie de tarjetas */
-            --bg-surface-hover: #141418;
+            --bg-deep: #0a0e17; /* Azul noche profundo en vez de negro puro */
+            --bg-surface: rgba(255, 255, 255, 0.07); /* Superficies más claras */
+            --bg-surface-hover: rgba(255, 255, 255, 0.12);
             
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #b0c4de; /* Texto secundario más claro y azulado */
             
-            --border-light: rgba(255, 255, 255, 0.06);
-            --border-glow: rgba(0, 242, 195, 0.5);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --border-glow: rgba(0, 225, 255, 0.5);
         }
 
         * {
@@ -41,14 +43,13 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.7;
-            /* Sutil textura de fondo para evitar el negro plano */
-            background-image: radial-gradient(circle at 15% 50%, rgba(0, 242, 195, 0.05), transparent 25%), radial-gradient(circle at 85% 30%, rgba(45, 122, 241, 0.05), transparent 25%);
-            background-attachment: fixed;
+            /* Fondo con un degradado sutil para dar vida */
+            background-image: linear-gradient(to bottom right, #0a0e17, #131a2a);
         }
 
         h1, h2, h3, h4 {
             font-weight: 700;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             color: #fff;
         }
 
@@ -58,14 +59,14 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* --- HEADER MODERNIZADO --- */
+        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(5, 5, 7, 0.8);
-            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 14, 23, 0.8); /* Más transparente */
+            backdrop-filter: blur(20px) saturate(150%);
             border-bottom: 1px solid var(--border-light);
             padding: 15px 0;
         }
@@ -80,9 +81,10 @@
         }
 
         .logo img {
-            height: 38px;
+            height: 40px;
             width: auto;
-            filter: drop-shadow(0 0 10px var(--primary-glow));
+            /* Resplandor azul */
+            filter: drop-shadow(0 0 8px var(--primary-glow));
         }
 
         .nav-menu {
@@ -92,17 +94,19 @@
         }
 
         .nav-menu a {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
+            color: var(--text-main); /* Texto blanco para mejor contraste */
             position: relative;
             padding: 5px 0;
+            opacity: 0.8;
         }
 
         .nav-menu a:hover {
-            color: var(--text-main);
+            opacity: 1;
+            color: var(--primary);
         }
 
         .nav-menu a::before {
@@ -112,7 +116,8 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
+            /* Gradiente en la barra de navegación */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             transition: width 0.3s ease;
             box-shadow: 0 0 15px var(--primary);
         }
@@ -130,7 +135,7 @@
             cursor: pointer;
         }
 
-        /* --- SECCIONES GENERALES --- */
+        /* --- SECCIONES --- */
         section {
             padding: 140px 30px;
             min-height: 100vh;
@@ -149,44 +154,57 @@
         }
 
         .section-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 80px;
             text-align: center;
-            /* Texto con gradiente sutil */
-            background: linear-gradient(to bottom right, #ffffff 30%, #94a3b8 100%);
+            /* Título con gradiente vibrante */
+            background: linear-gradient(to right, #ffffff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
+            /* Sombra de texto para que resalte */
+            text-shadow: 0 0 30px rgba(0, 225, 255, 0.3);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Más visible) --- */
         #hero {
-            /* Usamos un gradiente radial sobre la imagen para darle profundidad y foco central */
-            background: radial-gradient(circle at center, rgba(5, 5, 7, 0.3) 0%, var(--bg-deep) 80%), url('img/hero-bg.jpg') no-repeat center center/cover;
+            /* Quitamos el gradiente oscuro pesado sobre la imagen */
+            background: url('img/hero-bg.jpg') no-repeat center center/cover;
             padding: 0;
             align-items: center;
+            position: relative;
+        }
+
+        /* Capa de oscurecimiento MUCHO más suave (0.3 en vez de 0.7) */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 14, 23, 0.3); 
+            z-index: 1;
         }
 
         .hero-logo {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             height: auto;
-            /* Resplandor suave detrás del logo */
-            filter: drop-shadow(0 0 60px rgba(0, 242, 195, 0.2));
+            filter: drop-shadow(0 0 50px var(--primary-glow));
             animation: pulseLogo 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 60px rgba(0, 242, 195, 0.2)); }
-            50% { transform: scale(1.03); filter: drop-shadow(0 0 80px rgba(0, 242, 195, 0.3)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 50px var(--primary-glow)); }
+            50% { transform: scale(1.02); filter: drop-shadow(0 0 80px var(--primary)); }
         }
 
         /* --- SOBRE MÍ --- */
         #sobre-mi {
-            background: transparent; /* Usa el fondo global */
+            background: transparent;
         }
 
         .about-content {
@@ -195,11 +213,12 @@
             gap: 80px;
             align-items: center;
             background: var(--bg-surface);
+            backdrop-filter: blur(10px);
             padding: 50px;
             border-radius: 30px;
+            /* Borde brillante sutil */
             border: 1px solid var(--border-light);
-            /* Sutil efecto de luz en el borde */
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
         }
 
         .image-wrapper {
@@ -207,36 +226,35 @@
             border-radius: 20px;
             overflow: hidden;
             aspect-ratio: 1 / 1;
-            /* Borde con gradiente sutil */
-            padding: 3px;
-            background: linear-gradient(45deg, var(--border-light), var(--primary-glow));
+            padding: 4px;
+            /* Marco con gradiente vivo */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 30px var(--primary-glow);
         }
 
         .image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 18px; /* Un poco menos que el wrapper para que se vea el borde */
+            border-radius: 17px;
             display: block;
             transition: transform 0.5s ease;
-            filter: grayscale(30%);
+            /* YA NO HAY FILTRO BLANCO Y NEGRO INICIAL */
+            filter: brightness(1.1); 
         }
 
         .image-wrapper:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
+            transform: scale(1.03);
         }
 
         .text-wrapper h3 {
             font-size: 2.2rem;
             margin-bottom: 30px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .text-wrapper p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             margin-bottom: 25px;
             font-weight: 400;
@@ -244,35 +262,38 @@
 
         .highlight {
             color: var(--text-main);
-            font-weight: 600;
-            border-bottom: 2px solid var(--primary-glow);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
         }
 
-        /* --- EXPERIENCIA (TARJETAS REDISEÑADAS) --- */
+        /* --- EXPERIENCIA (Fondo visible) --- */
         #experiencia {
             position: relative;
         }
 
-        /* Fondo sutil para separar sección */
+        /* Fondo MUCHO más visible (0.25 opacidad) */
         #experiencia::before {
             content: '';
             position: absolute;
             inset: 0;
             background: url('img/experiencia-bg.jpg') center/cover;
-            opacity: 0.08;
-            mix-blend-mode: luminosity;
+            opacity: 0.25; 
+            mix-blend-mode: lighten; /* Modo de fusión para que resalten las luces */
             z-index: 0;
+            filter: saturate(120%); /* Colores más vivos en la foto de fondo */
         }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
+            gap: 35px;
         }
 
         .card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-light);
+            background: rgba(255, 255, 255, 0.05); /* Fondo más claro */
+            backdrop-filter: blur(15px);
+            /* Borde siempre visible con gradiente sutil */
+            border: 1px solid rgba(0, 225, 255, 0.3);
             padding: 50px 40px;
             border-radius: 24px;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -280,109 +301,123 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Efecto hover premium: Luz y elevación */
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-glow);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px -5px var(--primary-glow);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            /* Resplandor fuerte al hover */
+            box-shadow: 0 20px 50px -10px var(--primary-glow), inset 0 0 20px rgba(0, 225, 255, 0.1);
             background: var(--bg-surface-hover);
         }
 
         .card i {
-            font-size: 2.2rem;
-            color: var(--primary);
+            font-size: 2.5rem;
+            color: var(--text-main);
             margin-bottom: 30px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 70px;
-            height: 70px;
-            background: rgba(0, 242, 195, 0.05);
-            border-radius: 16px;
-            border: 1px solid var(--primary-glow);
+            width: 80px;
+            height: 80px;
+            /* Icono con fondo gradiente vivo */
+            background: linear-gradient(135deg, var(--primary-glow), rgba(79, 172, 254, 0.3));
+            border-radius: 20px;
+            border: 1px solid var(--primary);
             transition: 0.3s;
+            box-shadow: 0 0 20px var(--primary-glow);
         }
         
         .card:hover i {
+             transform: rotateY(180deg);
              background: var(--primary);
              color: var(--bg-deep);
-             box-shadow: 0 0 25px var(--primary-glow);
         }
 
         .card h4 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 25px;
         }
 
         .card ul {
             list-style: none;
-            flex-grow: 1; /* Para alinear contenido si las cajas tienen distinta altura */
+            flex-grow: 1;
         }
 
         .card li {
             margin-bottom: 15px;
             color: var(--text-muted);
-            padding-left: 25px;
+            padding-left: 30px;
             position: relative;
-            font-size: 1rem;
-            font-weight: 400;
+            font-size: 1.05rem;
         }
 
-        /* Icono de lista personalizado */
         .card li::before {
-            content: '▹';
+            content: '✦'; /* Icono de estrella/brillo */
             position: absolute;
             left: 0;
             color: var(--primary);
-            font-size: 1.2rem;
-            line-height: 1.4rem;
+            font-size: 1rem;
+            top: 2px;
         }
 
-        /* --- STACK TECNOLÓGICO --- */
+        /* --- STACK --- */
         #stack {
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 23, 0.8) 100%);
+            position: relative;
+        }
+        
+        #stack::before {
+             content: '';
+             position: absolute;
+             inset: 0;
+             background: url('img/tecnologias-bg.jpg') center/cover;
+             opacity: 0.15;
+             mix-blend-mode: screen;
         }
 
         .tech-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            max-width: 900px;
+            gap: 20px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .tech-item {
             background: var(--bg-surface);
             border: 1px solid var(--border-light);
-            padding: 18px 32px;
+            padding: 18px 35px;
             border-radius: 100px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 12px;
             transition: all 0.3s ease;
-            color: var(--text-muted);
+            color: var(--text-main);
             cursor: default;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .tech-item:hover {
-            background: var(--bg-surface-hover);
-            border-color: var(--primary-glow);
-            color: var(--text-main);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary-glow);
         }
 
         .tech-item i {
             color: var(--primary);
-            filter: drop-shadow(0 0 5px var(--primary-glow));
+            filter: drop-shadow(0 0 5px var(--primary));
         }
+        
+        .tech-item:hover i { color: #fff; }
 
-        /* --- CONTACTO --- */
+        /* --- CONTACTO (Fondo visible) --- */
         #contacto {
             position: relative;
         }
@@ -392,32 +427,33 @@
             position: absolute;
             inset: 0;
             background: url('img/contacto-bg.jpg') center/cover;
-            opacity: 0.3;
-            mix-blend-mode: overlay;
+            opacity: 0.4; /* Fondo mucho más visible */
+            mix-blend-mode: screen; /* Modo pantalla para que se vea luminoso */
             z-index: 0;
         }
         
         #contacto .container {
-            /* Un fondo suave detrás de los elementos de contacto para mejorar la lectura */
-             background: rgba(5, 5, 7, 0.6);
-             backdrop-filter: blur(30px);
+             /* Fondo semitransparente para leer el texto sobre la imagen */
+             background: rgba(10, 14, 23, 0.7);
+             backdrop-filter: blur(20px);
              padding: 60px;
              border-radius: 30px;
              border: 1px solid var(--border-light);
+             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 35px;
+            margin-top: 50px;
         }
 
         .contact-box {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-light);
-            padding: 40px 20px;
-            border-radius: 20px;
+            padding: 45px 25px;
+            border-radius: 25px;
             text-align: center;
             transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
@@ -429,32 +465,29 @@
 
         .contact-box:hover {
             border-color: var(--primary);
-            background: rgba(0, 242, 195, 0.05);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px -10px var(--primary-glow);
+            background: var(--primary-glow);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 40px var(--primary-glow);
         }
 
         .contact-box i {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            color: var(--text-main);
+            color: var(--primary);
             transition: 0.3s;
+            text-shadow: 0 0 10px var(--primary-glow);
         }
 
         .contact-box:hover i {
-            color: var(--primary);
-            text-shadow: 0 0 15px var(--primary);
+            color: #fff;
+            text-shadow: none;
         }
 
         .contact-box span {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: 0.3s;
-        }
-        
-        .contact-box:hover span {
+            font-size: 1.2rem;
             color: var(--text-main);
+            font-weight: 600;
+            transition: 0.3s;
         }
 
         footer {
@@ -462,12 +495,12 @@
             padding: 50px;
             border-top: 1px solid var(--border-light);
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             background: var(--bg-deep);
         }
 
         /* --- MOBILE --- */
-        @media (max-width: 900px) {
+        @media (max-width: 968px) {
             .menu-toggle { display: block; }
             .nav-menu {
                 position: fixed;
@@ -486,11 +519,13 @@
             .nav-menu.active { transform: translateY(0); }
             
             section { padding: 100px 20px; }
-            .section-title { font-size: 2.5rem; margin-bottom: 50px; }
+            .section-title { font-size: 2.8rem; margin-bottom: 50px; }
             
             .about-content { grid-template-columns: 1fr; padding: 30px; gap: 40px; }
-            .image-wrapper { max-width: 300px; margin: 0 auto; }
+            .image-wrapper { max-width: 350px; margin: 0 auto; }
             .text-wrapper { text-align: center; }
+            
+            .cards-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -535,8 +570,8 @@
                         sino la infraestructura donde se ejecuta. Combino la capacidad analítica de la programación con la creatividad 
                         del diseño técnico de espectáculos.
                     </p>
-                    <p style="color: var(--text-main); font-weight: 600; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 12px; background: rgba(0,242,195,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--primary-glow);">
-                        <i class="fas fa-check-circle" style="color: var(--primary); filter: drop-shadow(0 0 5px var(--primary));"></i> 
+                    <p style="color: var(--text-main); font-weight: 600; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 15px; background: linear-gradient(to right, rgba(0,225,255,0.1), rgba(79,172,254,0.1)); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow);">
+                        <i class="fas fa-bolt" style="color: var(--primary); font-size: 1.2rem;"></i> 
                         Enfocado en Desarrollo de Software y Lógica de Control.
                     </p>
                 </div>
@@ -644,7 +679,7 @@
             });
         });
 
-        // Scroll Animation Observer
+        // Scroll Animation Observer (Más dinámica)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -655,13 +690,14 @@
         }, { threshold: 0.1 });
 
         const elements = document.querySelectorAll('.card, .image-wrapper, .text-wrapper, .contact-box, .tech-item');
-        elements.forEach(el => {
+        elements.forEach((el, index) => {
             el.style.opacity = 0;
-            // Una animación de entrada un poco más sofisticada (sube y escala)
-            el.style.transform = 'translateY(40px) scale(0.95)';
-            el.style.transition = 'all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            el.style.transform = 'translateY(50px) scale(0.9)';
+            // Añade un pequeño retraso escalonado para que sea más dinámico
+            el.style.transition = `all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) ${index * 0.1}s`;
             observer.observe(el);
         });
     </script>
 </body>
 </html>
+
