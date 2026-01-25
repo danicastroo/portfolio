@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dani Castro | Dev & Visuals</title>
+    <title>Dani Castro - Portfolio Técnico</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
     <style>
         :root {
-            --bg-main: #0a0a0a;
-            --bg-secondary: #111111;
-            --accent-cyan: #00f0ff;
-            --accent-purple: #7000ff;
+            --primary: #00f2c3; /* Turquesa neón */
+            --primary-glow: rgba(0, 242, 195, 0.4);
+            --bg-dark: #08080a; /* Negro profundo azulado */
+            --surface: #121214;
             --text-main: #ffffff;
-            --text-muted: #888888;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(18, 18, 20, 0.7);
         }
 
         * {
@@ -32,15 +32,23 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.7;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
             letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
         }
 
         /* --- HEADER --- */
@@ -48,507 +56,564 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 40px;
+            z-index: 1000;
+            background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
+            padding: 0 25px;
         }
 
         .logo img {
             height: 35px;
-            filter: drop-shadow(0 0 5px var(--accent-cyan));
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(0,242,195,0.2));
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
             gap: 40px;
             list-style: none;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-        }
-
-        /* --- HERO SECTION --- */
-        #hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .nav-menu a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dim);
             position: relative;
-            /* Parallax Effect */
-            background: url('img/hero-bg.jpg') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed; 
         }
 
-        /* Overlay oscuro para leer texto sobre la imagen */
-        #hero::before {
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.9) 100%);
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary);
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            padding: 20px;
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
-        .hero-title {
-            font-size: 5rem;
-            line-height: 1;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
             font-size: 1.5rem;
-            color: var(--accent-cyan);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            cursor: pointer;
         }
 
-        /* --- GENERAL LAYOUT --- */
+        /* --- SECTIONS --- */
         section {
-            padding: 100px 5%;
+            padding: 120px 25px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             position: relative;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .section-header {
-            font-size: 3rem;
-            margin-bottom: 60px;
-            border-left: 5px solid var(--accent-purple);
-            padding-left: 20px;
-        }
-
-        /* --- SOBRE MI (Diseño Asimétrico) --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .profile-img-container {
-            position: relative;
-        }
-
-        .profile-img-container img {
             width: 100%;
-            border-radius: 4px;
-            filter: grayscale(100%);
-            transition: 0.5s;
-            box-shadow: 20px 20px 0px var(--border);
-        }
-
-        .profile-img-container:hover img {
-            filter: grayscale(0%);
-            box-shadow: 20px 20px 0px var(--accent-cyan);
-            transform: translate(-5px, -5px);
-        }
-
-        .about-text p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #ccc;
-            margin-bottom: 25px;
-        }
-
-        .highlight {
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        /* --- PARALLAX BREAK --- */
-        /* Una franja visual usando tus imágenes */
-        .parallax-break {
-            height: 400px;
-            background: url('img/experiencia-bg.jpg') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 2;
         }
-        
-        .parallax-break::after {
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 70px;
+            text-align: center;
+            /* Efecto gradiente en texto */
+            background: linear-gradient(to bottom, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- HERO --- */
+        #hero {
+            background: radial-gradient(circle at center, rgba(0, 242, 195, 0.08) 0%, var(--bg-dark) 60%), url('img/hero-bg.jpg') no-repeat center center/cover;
+            text-align: center;
+            padding: 0;
+        }
+
+        #hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(8, 8, 10, 0.5); /* Oscurece un poco la foto */
         }
-        
-        .parallax-text {
-            position: relative;
+
+        .hero-logo {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            filter: drop-shadow(0 0 40px rgba(0, 242, 195, 0.15));
+            animation: fadeInScale 1.5s ease-out;
+            position: relative; 
             z-index: 2;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            color: white;
-            text-transform: uppercase;
-            border: 2px solid white;
-            padding: 20px 40px;
-            backdrop-filter: blur(5px);
         }
 
-        /* --- EXPERIENCIA: BENTO GRID --- */
-        /* Estilo moderno tipo cuadrícula de cajas */
-        .bento-grid {
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- SOBRE MI --- */
+        #sobre-mi {
+            background-color: var(--bg-dark);
+        }
+
+        .about-content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(250px, auto);
-            gap: 20px;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 70px;
+            align-items: center;
         }
 
-        .bento-box {
-            background: var(--bg-secondary);
+        .image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            /* Marco brillante sutil */
             border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1; 
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .text-wrapper h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .text-wrapper p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* --- EXPERIENCIA --- */
+        #experiencia {
+            position: relative;
+            background-color: #0c0c0e;
+        }
+
+        #experiencia::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('img/experiencia-bg.jpg') center/cover;
+            opacity: 0.15; /* Fondo muy sutil */
+            mix-blend-mode: luminosity;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 40px 35px;
+            border-radius: 20px;
             transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             position: relative;
             overflow: hidden;
         }
 
-        .bento-box:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(255, 255, 255, 0.03);
-            transform: translateY(-5px);
+        /* Efecto hover elegante */
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px -10px var(--primary-glow);
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .bento-box.large {
-            grid-column: span 2;
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: rgba(0, 242, 195, 0.1);
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 1.8rem;
         }
 
-        .bento-icon {
-            font-size: 3rem;
-            color: var(--text-muted);
+        .card h4 {
+            font-size: 1.4rem;
             margin-bottom: 20px;
-            transition: 0.3s;
-        }
-        
-        .bento-box:hover .bento-icon {
-            color: var(--accent-purple);
         }
 
-        .bento-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #fff;
+        .card ul { list-style: none; }
+
+        .card li {
+            margin-bottom: 12px;
+            color: var(--text-dim);
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
         }
 
-        .bento-list {
-            list-style: none;
-            color: #aaa;
+        .card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
         }
-        
-        .bento-list li {
-            margin-bottom: 8px;
-            padding-left: 15px;
+
+        /* --- STACK --- */
+        #stack {
+            background: linear-gradient(180deg, #0c0c0e 0%, var(--bg-dark) 100%);
             position: relative;
         }
         
-        .bento-list li::before {
-            content: '>';
+        /* Imagen de fondo opcional para stack */
+        #stack::after {
+            content: '';
             position: absolute;
-            left: 0;
-            color: var(--accent-cyan);
-            font-size: 0.8rem;
+            inset: 0;
+            background: url('img/tecnologias-bg.jpg') center/cover;
+            opacity: 0.05;
+            z-index: 0;
         }
 
-        /* --- STACK VISUAL --- */
-        .stack-track {
+        .tech-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
-            margin-top: 20px;
         }
-        
-        .stack-tag {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 15px 30px;
+            border-radius: 100px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+            color: #d1d5db;
         }
-        
-        .stack-tag.dev { color: #61dafb; border-color: rgba(97, 218, 251, 0.3); }
-        .stack-tag.light { color: #f1c40f; border-color: rgba(241, 196, 15, 0.3); }
-        .stack-tag.video { color: #e74c3c; border-color: rgba(231, 76, 60, 0.3); }
+
+        .tech-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #fff;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .tech-item i { color: var(--primary); }
 
         /* --- CONTACTO --- */
         #contacto {
-            background: linear-gradient(0deg, var(--bg-main) 0%, #1a1a1a 100%);
-            text-align: center;
+            background: url('img/contacto-bg.jpg') center/cover;
+            position: relative;
         }
 
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            flex-wrap: wrap;
+        #contacto::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 8, 10, 0.85); /* Oscuro sobre la imagen */
+            backdrop-filter: blur(5px);
         }
 
-        .btn-contact {
-            padding: 15px 40px;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-box {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
-            border-radius: 50px;
-            background: var(--glass);
-            color: white;
-            font-size: 1.1rem;
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+        }
+
+        .contact-box:hover {
+            border-color: var(--primary);
+            background: rgba(0, 242, 195, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .contact-box i {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
             transition: 0.3s;
         }
 
-        .btn-contact:hover {
-            background: var(--text-main);
-            color: var(--bg-main);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        .contact-box:hover i {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
         }
 
-        /* --- FOOTER --- */
+        .contact-box span {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
         footer {
-            padding: 40px;
             text-align: center;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
+            padding: 40px;
+            border-top: 1px solid #1a1a1a;
+            color: #666;
             font-size: 0.9rem;
+            background: #050505;
         }
 
         /* --- MOBILE --- */
-        .menu-toggle { display: none; }
-
-        @media (max-width: 900px) {
-            .hero-title { font-size: 3.5rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-box.large { grid-column: span 1; }
-            
-            .menu-toggle {
-                display: block;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.5rem;
-            }
-            
-            .nav-links {
-                display: none; /* Simplificado para este ejemplo, idealmente usar JS toggle */
-                position: absolute;
-                top: 70px; left: 0; width: 100%;
-                background: var(--bg-secondary);
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #08080a;
                 flex-direction: column;
-                padding: 20px;
+                padding: 40px;
                 text-align: center;
+                transform: translateY(-150%);
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                border-bottom: 1px solid var(--border);
             }
+            .nav-menu.active { transform: translateY(0); }
             
-            .nav-links.active { display: flex; }
+            .about-content { grid-template-columns: 1fr; }
+            .image-wrapper { max-width: 320px; margin: 0 auto; }
+            .text-wrapper { text-align: center; }
+            .section-title { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">
-            <img src="img/logo.svg" alt="DC">
-        </a>
-        <button class="menu-toggle"><i class="fas fa-bars"></i></button>
-        <ul class="nav-links">
-            <li><a href="#sobre-mi">Perfil</a></li>
-            <li><a href="#experiencia">Habilidades</a></li>
-            <li><a href="#stack">Stack</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <img src="img/logo.svg" alt="Dani Castro">
+            </a>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-menu">
+                <li><a href="#sobre-mi">Perfil</a></li>
+                <li><a href="#experiencia">Experiencia</a></li>
+                <li><a href="#stack">Tecnología</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
     </header>
 
     <section id="hero">
-        <div class="hero-content">
-            <h1 class="hero-title fade-in">DANI CASTRO</h1>
-            <p class="hero-subtitle fade-in">Dev & Visual Artist</p>
+        <div class="container">
+            <img src="img/logo.svg" alt="Dani Castro Logo" class="hero-logo">
         </div>
     </section>
 
     <section id="sobre-mi">
         <div class="container">
-            <div class="about-grid">
-                <div class="profile-img-container slide-up">
-                    <img src="img/daniel.jpg" alt="Dani Castro Profile">
+            <div class="about-content">
+                <div class="image-wrapper">
+                    <img src="img/daniel.jpg" alt="Foto de Dani Castro">
                 </div>
-                <div class="about-text slide-up">
-                    <h2 class="section-header">El perfil híbrido.</h2>
+                <div class="text-wrapper">
+                    <h3>Perfil Técnico</h3>
                     <p>
-                        Estoy en el punto de convergencia entre el <span class="highlight">código</span> y el <span class="highlight">escenario</span>. 
-                        Finalizando mi Ciclo Superior en <strong>Desarrollo de Aplicaciones Web (DAW)</strong> y con un background sólido en Sistemas (SMR).
+                        Finalizando el <span class="highlight">Ciclo Superior de Desarrollo de Aplicaciones Web (DAW)</span>.
+                        Mi perfil ha evolucionado hacia la programación avanzada, buscando aplicar la lógica del software 
+                        al control de sistemas complejos.
                     </p>
                     <p>
-                        Mi enfoque no es solo escribir software, sino entender cómo la lógica de programación puede controlar el mundo físico: 
-                        desde una página web hasta un sistema complejo de pantallas LED y cabezas móviles DMX.
+                        Cuento con una base sólida como Técnico en Sistemas (SMR), lo que me permite entender no solo el código, 
+                        sino la infraestructura donde se ejecuta. Combino la capacidad analítica de la programación con la creatividad 
+                        del diseño técnico de espectáculos.
                     </p>
-                    <p>
-                        Busco proyectos donde la precisión técnica y el impacto visual sean obligatorios.
+                    <p style="color: #fff; font-weight: 600; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <i class="fas fa-check-circle" style="color: var(--primary);"></i> 
+                        Enfocado en Desarrollo de Software y Lógica de Control.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="parallax-break">
-        <div class="parallax-text">CREATIVIDAD TÉCNICA</div>
-    </div>
-
     <section id="experiencia">
         <div class="container">
-            <h2 class="section-header">Expertise</h2>
-            
-            <div class="bento-grid">
-                <div class="bento-box large slide-up">
-                    <div>
-                        <i class="fas fa-terminal bento-icon"></i>
-                        <h3 class="bento-title">Desarrollo Web & Lógica</h3>
-                        <p style="color: #888; margin-bottom: 15px;">La base de todo control moderno.</p>
-                        <ul class="bento-list">
-                            <li>Desarrollo de Aplicaciones Web (Finalizando DAW).</li>
-                            <li>Lógica de programación estructurada y POO.</li>
-                            <li>Integración Software-Hardware.</li>
-                            <li>Resolución algorítmica de problemas.</li>
-                        </ul>
-                    </div>
+            <h2 class="section-title">Experiencia & Habilidades</h2>
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-code"></i></div>
+                    <h4>Programación & Lógica</h4>
+                    <ul>
+                        <li>Desarrollo de Aplicaciones Web (En curso).</li>
+                        <li>Lógica de programación estructurada y POO.</li>
+                        <li>Integración de sistemas software/hardware.</li>
+                        <li>Resolución de problemas algorítmicos.</li>
+                    </ul>
                 </div>
 
-                <div class="bento-box slide-up">
-                    <div>
-                        <i class="fas fa-bolt bento-icon"></i>
-                        <h3 class="bento-title">Iluminación</h3>
-                        <ul class="bento-list">
-                            <li>Diseño Stage Light.</li>
-                            <li>Daslight 5 (Avanzado).</li>
-                            <li>GrandMA2 (Operativa).</li>
-                            <li>Iluminación pública.</li>
-                        </ul>
-                    </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-desktop"></i></div>
+                    <h4>Video & Pantallas</h4>
+                    <ul>
+                        <li>Resolume Arena (Mapping & VJing).</li>
+                        <li>NovaStar LCT (Configuración LED).</li>
+                        <li>Gestión de señales de video y resoluciones.</li>
+                    </ul>
                 </div>
 
-                <div class="bento-box slide-up">
-                    <div>
-                        <i class="fas fa-video bento-icon"></i>
-                        <h3 class="bento-title">Video & LED</h3>
-                        <ul class="bento-list">
-                            <li>Resolume Arena VJing.</li>
-                            <li>NovaStar LCT.</li>
-                            <li>Mapping de pantallas.</li>
-                        </ul>
-                    </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Iluminación & Control</h4>
+                    <ul>
+                        <li>Daslight 5 (Programación avanzada).</li>
+                        <li>GrandMA2 (Nociones y operativa).</li>
+                        <li>Programación de alumbrado público/navideño.</li>
+                        <li>Diseño de Stage Lighting.</li>
+                    </ul>
                 </div>
 
-                <div class="bento-box large slide-up" style="background: url('img/tecnologias-bg.jpg') center/cover;">
-                    <div style="background: rgba(0,0,0,0.8); position: absolute; inset:0; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 class="bento-title">Tech Stack</h3>
-                        <div class="stack-track">
-                            <span class="stack-tag dev">Java</span>
-                            <span class="stack-tag dev">Web Dev</span>
-                            <span class="stack-tag light">DMX 512</span>
-                            <span class="stack-tag light">ArtNet</span>
-                            <span class="stack-tag video">Resolume</span>
-                            <span class="stack-tag video">NovaStar</span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stack">
+        <div class="container">
+            <h2 class="section-title">Stack Tecnológico</h2>
+            <div class="tech-container">
+                <div class="tech-item"><i class="fas fa-laptop-code"></i> Desarrollo de Software</div>
+                <div class="tech-item"><i class="fas fa-terminal"></i> Programación Web</div>
+                <div class="tech-item"><i class="fas fa-tv"></i> Resolume Arena</div>
+                <div class="tech-item"><i class="fas fa-microchip"></i> NovaStar</div>
+                <div class="tech-item"><i class="fas fa-bolt"></i> Daslight 5</div>
+                <div class="tech-item"><i class="fas fa-sliders-h"></i> GrandMA2</div>
             </div>
         </div>
     </section>
 
     <section id="contacto">
         <div class="container">
-            <h2 class="section-header" style="text-align: center; border: none;">Conectemos</h2>
-            <p style="color: #888; max-width: 600px; margin: 0 auto;">
-                Disponible para desarrollos web, configuraciones de sistemas visuales o proyectos de iluminación.
-            </p>
-            
-            <div class="contact-links slide-up">
-                <a href="mailto:danicvillalba@gmail.com" class="btn-contact">
-                    <i class="fas fa-envelope"></i> Email
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-grid">
+                <a href="mailto:danicvillalba@gmail.com" class="contact-box">
+                    <i class="fas fa-envelope"></i>
+                    <span>Enviar Email</span>
                 </a>
-                <a href="https://www.linkedin.com/in/danicastroo" target="_blank" class="btn-contact">
-                    <i class="fab fa-linkedin"></i> LinkedIn
+                <a href="https://www.instagram.com/danicastro.o" target="_blank" class="contact-box">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
                 </a>
-                <a href="https://www.instagram.com/danicastro.o" target="_blank" class="btn-contact">
-                    <i class="fab fa-instagram"></i> Instagram
+                <a href="https://www.linkedin.com/in/danicastroo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="contact-box">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
                 </a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Dani Castro &copy; 2026. Designed for the Future.</p>
+        <p>Dani Castro &copy; 2026</p>
     </footer>
 
     <script>
-        // Menu Toggle Mobile
-        const menuBtn = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = menuBtn.querySelector('i');
+        // Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
         });
 
         // Scroll Animation Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
+                    entry.target.style.opacity = 1;
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
 
-        // Elementos a animar
-        const animatedElements = document.querySelectorAll('.fade-in, .slide-up');
-        
-        animatedElements.forEach((el) => {
-            el.style.opacity = '0';
+        const elements = document.querySelectorAll('.card, .image-wrapper, .text-wrapper, .contact-box, .tech-item');
+        elements.forEach(el => {
+            el.style.opacity = 0;
             el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+            el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
         });
     </script>
 </body>
 </html>
-
