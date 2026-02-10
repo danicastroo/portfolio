@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani Castro - Technical Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+
+    <style>
+        :root {
+            /* Paleta de colores más vibrante */
+            --primary: #00e1ff; /* Cian eléctrico más brillante */
+            --primary-glow: rgba(0, 225, 255, 0.6);
+            --secondary: #4facfe; /* Azul vivo para gradientes */
+            
+            --bg-deep: #0a0e17; /* Azul noche profundo en vez de negro puro */
+            --bg-surface: rgba(255, 255, 255, 0.07); /* Superficies más claras */
+            --bg-surface-hover: rgba(255, 255, 255, 0.12);
+            
+            --text-main: #ffffff;
+            --text-muted: #b0c4de; /* Texto secundario más claro y azulado */
+            
+            --border-light: rgba(255, 255, 255, 0.15);
+            --border-glow: rgba(0, 225, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+            /* Fondo con un degradado sutil para dar vida */
+            background-image: linear-gradient(to bottom right, #0a0e17, #131a2a);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 14, 23, 0.8); /* Más transparente */
+            backdrop-filter: blur(20px) saturate(150%);
+            border-bottom: 1px solid var(--border-light);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            /* Resplandor azul */
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main); /* Texto blanco para mejor contraste */
+            position: relative;
+            padding: 5px 0;
+            opacity: 0.8;
+        }
+
+        .nav-menu a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            /* Gradiente en la barra de navegación */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- SECCIONES --- */
+        section {
+            padding: 140px 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 80px;
+            text-align: center;
+            /* Título con gradiente vibrante */
+            background: linear-gradient(to right, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Sombra de texto para que resalte */
+            text-shadow: 0 0 30px rgba(0, 225, 255, 0.3);
+        }
+
+        /* --- HERO SECTION (Más visible) --- */
+        #hero {
+            /* Quitamos el gradiente oscuro pesado sobre la imagen */
+            background: url('img/hero-bg.jpg') no-repeat center center/cover;
+            padding: 0;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Capa de oscurecimiento MUCHO más suave (0.3 en vez de 0.7) */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 14, 23, 0.3); 
+            z-index: 1;
+        }
+
+        .hero-logo {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            filter: drop-shadow(0 0 50px var(--primary-glow));
+            animation: pulseLogo 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 50px var(--primary-glow)); }
+            50% { transform: scale(1.02); filter: drop-shadow(0 0 80px var(--primary)); }
+        }
+
+        /* --- SOBRE MÍ --- */
+        #sobre-mi {
+            background: transparent;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 80px;
+            align-items: center;
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 30px;
+            /* Borde brillante sutil */
+            border: 1px solid var(--border-light);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            padding: 4px;
+            /* Marco con gradiente vivo */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 17px;
+            display: block;
+            transition: transform 0.5s ease;
+            /* YA NO HAY FILTRO BLANCO Y NEGRO INICIAL */
+            filter: brightness(1.1); 
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        .text-wrapper h3 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .text-wrapper p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* --- EXPERIENCIA (Fondo visible) --- */
+        #experiencia {
+            position: relative;
+        }
+
+        /* Fondo MUCHO más visible (0.25 opacidad) */
+        #experiencia::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('img/experiencia-bg.jpg') center/cover;
+            opacity: 0.25; 
+            mix-blend-mode: lighten; /* Modo de fusión para que resalten las luces */
+            z-index: 0;
+            filter: saturate(120%); /* Colores más vivos en la foto de fondo */
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05); /* Fondo más claro */
+            backdrop-filter: blur(15px);
+            /* Borde siempre visible con gradiente sutil */
+            border: 1px solid rgba(0, 225, 255, 0.3);
+            padding: 50px 40px;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            /* Resplandor fuerte al hover */
+            box-shadow: 0 20px 50px -10px var(--primary-glow), inset 0 0 20px rgba(0, 225, 255, 0.1);
+            background: var(--bg-surface-hover);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            /* Icono con fondo gradiente vivo */
+            background: linear-gradient(135deg, var(--primary-glow), rgba(79, 172, 254, 0.3));
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+        
+        .card:hover i {
+             transform: rotateY(180deg);
+             background: var(--primary);
+             color: var(--bg-deep);
+        }
+
+        .card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+        }
+
+        .card ul {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .card li {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .card li::before {
+            content: '✦'; /* Icono de estrella/brillo */
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1rem;
+            top: 2px;
+        }
+
+        /* --- STACK --- */
+        #stack {
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 23, 0.8) 100%);
+            position: relative;
+        }
+        
+        #stack::before {
+             content: '';
+             position: absolute;
+             inset: 0;
+             background: url('img/tecnologias-bg.jpg') center/cover;
+             opacity: 0.15;
+             mix-blend-mode: screen;
+        }
+
+        .tech-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            padding: 18px 35px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+            cursor: default;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tech-item:hover {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .tech-item i {
+            color: var(--primary);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+        
+        .tech-item:hover i { color: #fff; }
+
+        /* --- CONTACTO (Fondo visible) --- */
+        #contacto {
+            position: relative;
+        }
+        
+        #contacto::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('img/contacto-bg.jpg') center/cover;
+            opacity: 0.4; /* Fondo mucho más visible */
+            mix-blend-mode: screen; /* Modo pantalla para que se vea luminoso */
+            z-index: 0;
+        }
+        
+        #contacto .container {
+             /* Fondo semitransparente para leer el texto sobre la imagen */
+             background: rgba(10, 14, 23, 0.7);
+             backdrop-filter: blur(20px);
+             padding: 60px;
+             border-radius: 30px;
+             border: 1px solid var(--border-light);
+             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .contact-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            padding: 45px 25px;
+            border-radius: 25px;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-box:hover {
+            border-color: var(--primary);
+            background: var(--primary-glow);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 40px var(--primary-glow);
+        }
+
+        .contact-box i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            transition: 0.3s;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .contact-box:hover i {
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .contact-box span {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 1rem;
+            background: var(--bg-deep);
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 968px) {
+            .menu-toggle { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-deep);
+                flex-direction: column;
+                padding: 40px 30px;
+                text-align: center;
+                transform: translateY(-150%);
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                border-bottom: 1px solid var(--border-glow);
+                gap: 25px;
+            }
+            .nav-menu.active { transform: translateY(0); }
+            
+            section { padding: 100px 20px; }
+            .section-title { font-size: 2.8rem; margin-bottom: 50px; }
+            
+            .about-content { grid-template-columns: 1fr; padding: 30px; gap: 40px; }
+            .image-wrapper { max-width: 350px; margin: 0 auto; }
+            .text-wrapper { text-align: center; }
+            
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <img src="img/logo.svg" alt="Dani Castro">
+            </a>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-menu">
+                <li><a href="#sobre-mi">Profile</a></li>
+                <li><a href="#experiencia">Experience</a></li>
+                <li><a href="#stack">Stack</a></li>
+                <li><a href="#contacto">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <img src="img/logo.svg" alt="Dani Castro Logo" class="hero-logo">
+        </div>
+    </section>
+
+    <section id="sobre-mi">
+        <div class="container">
+            <div class="about-content">
+                <div class="image-wrapper">
+                    <img src="img/daniel.jpg" alt="Dani Castro Photo">
+                </div>
+                <div class="text-wrapper">
+                    <h3>Technical Profile</h3>
+                    <p>
+                        Finishing my <span class="highlight">Higher Degree in Web Application Development (DAW)</span>.
+                        My profile has evolved towards advanced programming, seeking to apply software logic 
+                        to the control of complex systems.
+                    </p>
+                    <p>
+                        I have a solid background as a Systems Technician (SMR), which allows me to understand not just the code, 
+                        but the infrastructure where it runs. I combine the analytical capacity of programming with the creativity 
+                        of technical show design.
+                    </p>
+                    <p style="color: var(--text-main); font-weight: 600; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 15px; background: linear-gradient(to right, rgba(0,225,255,0.1), rgba(79,172,254,0.1)); padding: 20px; border-radius: 15px; border: 1px solid var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow);">
+                        <i class="fas fa-bolt" style="color: var(--primary); font-size: 1.2rem;"></i> 
+                        Focused on Software Development and Control Logic.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia">
+        <div class="container">
+            <h2 class="section-title">Experience & Skills</h2>
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <i class="fas fa-code"></i>
+                    <h4>Programming & Logic</h4>
+                    <ul>
+                        <li>Web Application Development (In progress).</li>
+                        <li>Structured programming logic and OOP.</li>
+                        <li>Software/hardware systems integration.</li>
+                        <li>Algorithmic problem solving.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-desktop"></i>
+                    <h4>Video & Screens</h4>
+                    <ul>
+                        <li>Resolume Arena (Mapping & VJing).</li>
+                        <li>NovaStar LCT (LED Configuration).</li>
+                        <li>Video signal and resolution management.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Lighting & Control</h4>
+                    <ul>
+                        <li>Daslight 5 (Advanced programming).</li>
+                        <li>GrandMA2 (Basics and operation).</li>
+                        <li>Public/Christmas lighting programming.</li>
+                        <li>Stage Lighting Design.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="stack">
+        <div class="container">
+            <h2 class="section-title">Tech Stack</h2>
+            <div class="tech-container">
+                <div class="tech-item"><i class="fas fa-laptop-code"></i> Software Development</div>
+                <div class="tech-item"><i class="fas fa-terminal"></i> Web Programming</div>
+                <div class="tech-item"><i class="fas fa-tv"></i> Resolume Arena</div>
+                <div class="tech-item"><i class="fas fa-microchip"></i> NovaStar</div>
+                <div class="tech-item"><i class="fas fa-bolt"></i> Daslight 5</div>
+                <div class="tech-item"><i class="fas fa-sliders-h"></i> GrandMA2</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-grid">
+                <a href="mailto:danicvillalba@gmail.com" class="contact-box">
+                    <i class="fas fa-envelope"></i>
+                    <span>Send Email</span>
+                </a>
+                <a href="https://www.instagram.com/danicastro.o" target="_blank" class="contact-box">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.linkedin.com/in/danicastroo?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="contact-box">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Dani Castro. Technical Portfolio.</p>
+    </footer>
+
+    <script>
+        // Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Scroll Animation Observer (Más dinámica)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const elements = document.querySelectorAll('.card, .image-wrapper, .text-wrapper, .contact-box, .tech-item');
+        elements.forEach((el, index) => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(50px) scale(0.9)';
+            // Añade un pequeño retraso escalonado para que sea más dinámico
+            el.style.transition = `all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) ${index * 0.1}s`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
